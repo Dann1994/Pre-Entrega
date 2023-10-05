@@ -29,13 +29,13 @@ class App {
     }
 
     verDatos = () => {
-        const datos = "Nombre " + this.User.nombre + " " + this.User.apellido + "\n" + "Usuario: " + this.User.User + "\n" + "Fecha de registro " + this.User.fechaRegistro
+        const datos = `Nombre  ${this.User.nombre} ${this.User.apellido} \nUsuario: ${this.User.User} \nFecha de registro ${this.User.fechaRegistro}`
         alert(datos)
     }
 
     sesion = ()  => {
         while (this.User) {
-            let opcion = prompt('¡Bienvenido ' + this.User.nombre + '! \n Ingrese: \n 1 - Ver datos de usuario \n 2 - Cambiar nombre de usuario \n 3 - Cambiar contraseña \n 4 - Cerrar sesión \n 5 - Eliminar cuenta').trim();
+            let opcion = prompt(`¡Bienvenido ${this.User.nombre} \nIngrese: \n1 - Ver datos de usuario \n2 - Cambiar nombre de usuario \n3 - Cambiar contraseña \n4 - Cerrar sesión \n5 - Eliminar cuenta`).trim();
             switch (parseInt(opcion)) {
                 case 1:
                     this.verDatos()
@@ -62,17 +62,16 @@ class App {
     }
 
     cambiarNombreUsuario = () => {
-        const objeto = this.usuarios.find( u => u.User == this.User);
+        const objeto = this.usuarios.find( u => u.User == this.User.User);
 
         const newUser = prompt('Ingrese su nuevo nombre de usuario');
 
-        alert('¡Cambiaste tu nombre de ' + this.User + ' a ' + newUser + '!')
+        alert('¡Cambiaste tu nombre de ' + this.User.User + ' a ' + newUser + '!');
         objeto.actualizarUser(newUser);
-        this.User = newUser;
     }
 
     cambiarContrasenia = () => {
-        const objeto = this.usuarios.find( u => u.User == this.User);
+        const objeto = this.usuarios.find( u => u.User == this.User.User);
 
         while (true) {
             const newPass = prompt('Ingrese su nueva contraseña');
@@ -133,7 +132,7 @@ class App {
     };
 
     eliminarUsuario = () => {
-        const objeto = this.usuarios.find( u => u.User == this.User);
+        const objeto = this.usuarios.find( u => u.User == this.User.User);
 
         const {User, Pass} = objeto;
 
@@ -141,7 +140,7 @@ class App {
             const pass = prompt('Ingrese su contraseña para eliminar su cuenta');
 
             if ( pass === Pass) {
-                alert('Eliminaste tu usario ' + User)
+                alert(`Eliminaste tu usario ${User}`)
                 this.usuarios = this.usuarios.filter( u => u.User !== User )
                 break;
             } else {
@@ -155,7 +154,7 @@ class App {
 
         if (this.usuarios.length > 0) {
             this.usuarios.forEach( u => {
-                listaUsuarios = listaUsuarios + 'Nombre: ' + u.nombre + ' ' + u.apellido + '\n' +  'Usuario: ' + u.User + '\n'
+                listaUsuarios = listaUsuarios + `\nNombre: ${u.nombre} ${u.apellido} \nUsuario: ${u.User} \n`
             });
             alert(listaUsuarios)
         } else {
@@ -179,7 +178,8 @@ class App {
                     this.verUsuarios();
                     break;
                 case 4:
-                    this.terminar();
+                    iniciar = false;
+                    alert('Adios!!')
                     break;
                 default:
                     alert('Opción inválida');
